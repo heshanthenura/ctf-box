@@ -11,8 +11,8 @@ interface ChallengeType {
 const challenges: ChallengeType[] = [
   {
     id: 1,
-    title: "Test",
-    preview_description: "Description",
+    title: "Public Repo",
+    preview_description: "Found a public repo of an employee",
     difficulty: "EASY",
     completed: false,
     tag: "Tag",
