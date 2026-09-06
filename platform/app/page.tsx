@@ -82,7 +82,7 @@ export default function Home() {
                           : "[UNSOLVED]"}
                     </span>
                   </div>
-                  <p className="text-xs text-zinc-400 mb-2 break-words">
+                  <p className="text-xs text-zinc-400 mb-2 wrap-break-words">
                     #{" "}
                     {isUnlocked
                       ? challenge.preview_description

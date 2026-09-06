@@ -238,7 +238,7 @@ export default function ChallengePage() {
 
           {message && (
             <div
-              className={`text-xs p-2 border break-words ${
+              className={`text-xs p-2 border wrap-break-words ${
                 message.type === "success"
                   ? "border-zinc-400 text-zinc-200 bg-zinc-900/40"
                   : message.type === "error"
@@ -261,14 +261,14 @@ export default function ChallengePage() {
               </p>
             ) : (
               <div
-                className="text-xs space-y-3 min-w-0 break-words
+                className="text-xs space-y-3 min-w-0 wrap-break-words
                   [&_h1]:text-zinc-100 [&_h1]:font-bold
                   [&_h2]:text-zinc-100 [&_h2]:font-bold
                   [&_h3]:text-zinc-200
                   [&_ul]:list-disc [&_ul]:pl-4
                   [&_ol]:list-decimal [&_ol]:pl-4
-                  [&_p]:break-words
-                  [&_code]:bg-zinc-900 [&_code]:px-1 [&_code]:py-0.5 [&_code]:border [&_code]:border-zinc-800 [&_code]:break-words [&_code]:whitespace-pre-wrap
+                  [&_p]:wrap-break-words
+                  [&_code]:bg-zinc-900 [&_code]:px-1 [&_code]:py-0.5 [&_code]:border [&_code]:border-zinc-800 [&_code]:wrap-break-words [&_code]:whitespace-pre-wrap
                   [&_pre]:bg-zinc-900/60 [&_pre]:p-3 [&_pre]:border [&_pre]:border-zinc-800 [&_pre]:overflow-x-auto [&_pre]:max-w-full
                   [&_pre_code]:whitespace-pre [&_pre_code]:break-normal [&_pre_code]:bg-transparent [&_pre_code]:border-0 [&_pre_code]:p-0
                   [&_a]:text-zinc-300 [&_a]:underline [&_a]:break-all
