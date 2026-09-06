@@ -18,36 +18,71 @@ export default function Home() {
       </nav>
       <div className="max-w-7xl w-full flex flex-col items-center flex-1 p-6">
         <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4">
-          {challenges.map((challenge: ChallengeType) => (
-            <div
-              key={challenge.id}
-              className="border border-emerald-900/60 bg-black p-4 flex flex-col justify-between gap-4 overflow-hidden relative group hover:border-emerald-500/50 transition-colors"
-            >
-              <div className="min-w-0">
-                <div className="flex items-start justify-between gap-2 mb-1">
-                  <h1 className="text-xs font-bold text-emerald-400 truncate">
-                    $ ./&lt;{challenge.title.toLowerCase()}&gt;
-                  </h1>
-                  <span className="text-[10px] text-emerald-600 shrink-0">
-                    [{challenge.tag}]
-                  </span>
-                </div>
-                <div className="text-[10px] text-emerald-600/70 mb-2">
-                  &gt; diff: {challenge.difficulty.toLowerCase()}
-                </div>
-                <p className="text-xs text-emerald-600/80 mb-2 break-words">
-                  # {challenge.preview_description}
-                </p>
-              </div>
+          {challenges.map((challenge: ChallengeType, index: number) => {
+            const isUnlocked = index === 0 || challenges[index - 1].completed;
 
-              <Link
-                href={"challenges/" + challenge.id}
-                className="text-xs border border-emerald-900/60 text-emerald-400 hover:bg-emerald-950/40 hover:border-emerald-500/60 py-2 px-3 text-center transition-colors shrink-0"
+            return (
+              <div
+                key={challenge.id}
+                className={`border bg-black p-4 flex flex-col justify-between gap-4 overflow-hidden relative group transition-colors ${
+                  !isUnlocked
+                    ? "border-emerald-950 opacity-40"
+                    : challenge.completed
+                      ? "border-emerald-500/80 shadow-[0_0_10px_rgba(16,185,129,0.1)]"
+                      : "border-emerald-900/60 hover:border-emerald-500/50"
+                }`}
               >
-                cd challenges/{challenge.id}
-              </Link>
-            </div>
-          ))}
+                <div className="min-w-0">
+                  <div className="flex items-start justify-between gap-2 mb-1">
+                    <h1 className="text-xs font-bold text-emerald-400 truncate">
+                      $ ./&lt;{challenge.title.toLowerCase()}&gt;
+                    </h1>
+                    <span className="text-[10px] text-emerald-600 shrink-0">
+                      [{challenge.tag}]
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between text-[10px] text-emerald-600/70 mb-2">
+                    <span>&gt; diff: {challenge.difficulty.toLowerCase()}</span>
+                    <span
+                      className={
+                        !isUnlocked
+                          ? "text-emerald-900"
+                          : challenge.completed
+                            ? "text-emerald-400 font-bold"
+                            : "text-emerald-700"
+                      }
+                    >
+                      status:{" "}
+                      {!isUnlocked
+                        ? "[LOCKED]"
+                        : challenge.completed
+                          ? "[SOLVED]"
+                          : "[UNSOLVED]"}
+                    </span>
+                  </div>
+                  <p className="text-xs text-emerald-600/80 mb-2 wrap-break-words">
+                    #{" "}
+                    {isUnlocked
+                      ? challenge.preview_description
+                      : "Access denied. Complete previous stage to decrypt."}
+                  </p>
+                </div>
+
+                {isUnlocked ? (
+                  <Link
+                    href={"challenges/" + challenge.id}
+                    className="text-xs border border-emerald-900/60 text-emerald-400 hover:bg-emerald-950/40 hover:border-emerald-500/60 py-2 px-3 text-center transition-colors shrink-0"
+                  >
+                    cd challenges/{challenge.id}
+                  </Link>
+                ) : (
+                  <div className="text-xs border border-emerald-950 text-emerald-900 py-2 px-3 text-center cursor-not-allowed shrink-0">
+                    [LOCKED]
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

@@ -1,7 +1,11 @@
 "use client";
-
-import { createContext, useContext, useState, type ReactNode } from "react";
-
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  type ReactNode,
+} from "react";
 import {
   challenges as initialChallenges,
   type ChallengeType,
@@ -10,15 +14,52 @@ import {
 interface ChallengesContextType {
   challenges: ChallengeType[];
   completeChallenge: (id: number) => void;
+  isLoaded: boolean;
 }
 
 const ChallengesContext = createContext<ChallengesContextType | undefined>(
   undefined,
 );
 
+const STORAGE_KEY = "challenges-progress";
+
 export function ChallengesProvider({ children }: { children: ReactNode }) {
+  // Same value on server AND on first client render -> no mismatch
   const [challenges, setChallenges] =
     useState<ChallengeType[]>(initialChallenges);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Runs only on the client, after hydration - safe to touch localStorage here
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const savedChallenges: ChallengeType[] = JSON.parse(saved);
+        setChallenges((current) =>
+          current.map((challenge) => {
+            const match = savedChallenges.find((s) => s.id === challenge.id);
+            return match
+              ? { ...challenge, completed: match.completed }
+              : challenge;
+          }),
+        );
+      }
+    } catch (error) {
+      console.error("Failed to load challenges from localStorage:", error);
+    } finally {
+      setIsLoaded(true);
+    }
+  }, []);
+
+  // Persist whenever challenges change (skip the very first render before load)
+  useEffect(() => {
+    if (!isLoaded) return;
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(challenges));
+    } catch (error) {
+      console.error("Failed to save challenges to localStorage:", error);
+    }
+  }, [challenges, isLoaded]);
 
   const completeChallenge = (id: number) => {
     setChallenges((current) =>
@@ -27,11 +68,13 @@ export function ChallengesProvider({ children }: { children: ReactNode }) {
       ),
     );
   };
+
   return (
     <ChallengesContext.Provider
       value={{
         challenges,
         completeChallenge,
+        isLoaded,
       }}
     >
       {children}

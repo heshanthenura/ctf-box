@@ -5,6 +5,7 @@ interface ChallengeType {
   difficulty: string;
   completed: boolean;
   tag: string;
+  flag: string;
 }
 
 const challenges: ChallengeType[] = [
@@ -15,6 +16,7 @@ const challenges: ChallengeType[] = [
     difficulty: "EASY",
     completed: false,
     tag: "Tag",
+    flag: "FLAG{test}",
   },
   {
     id: 2,
@@ -23,6 +25,7 @@ const challenges: ChallengeType[] = [
     difficulty: "EASY",
     completed: false,
     tag: "Tag",
+    flag: "FLAG{test}",
   },
   {
     id: 3,
@@ -31,6 +34,7 @@ const challenges: ChallengeType[] = [
     difficulty: "EASY",
     completed: false,
     tag: "Tag",
+    flag: "FLAG{test}",
   },
   {
     id: 4,
@@ -39,6 +43,7 @@ const challenges: ChallengeType[] = [
     completed: false,
     title: "Test",
     tag: "Tag",
+    flag: "FLAG{test}",
   },
 ];
 
