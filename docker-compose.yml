@@ -7,3 +7,11 @@ services:
       - ./platform:/app
       - /app/node_modules
       - /app/.next
+
+  api:
+    build: ./api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./api:/app
+    restart: unless-stopped

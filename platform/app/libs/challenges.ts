@@ -25,7 +25,7 @@ const challenges: ChallengeType[] = [
     difficulty: "EASY",
     completed: false,
     tag: "Tag",
-    flag: "FLAG{test}",
+    flag: "CTF{aTKjs9xQ2amL4davR8tN}",
   },
   {
     id: 3,
