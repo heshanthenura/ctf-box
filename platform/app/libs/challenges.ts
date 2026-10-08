@@ -20,30 +20,13 @@ const challenges: ChallengeType[] = [
   },
   {
     id: 2,
-    title: "Test",
-    preview_description: "asd",
-    difficulty: "EASY",
+    title: "Staging is Production",
+    preview_description:
+      "An admin-only endpoint trusts whatever role is in the JWT",
+    difficulty: "MEDIUM",
     completed: false,
-    tag: "Tag",
-    flag: "CTF{aTKjs9xQ2amL4davR8tN}",
-  },
-  {
-    id: 3,
-    title: "Test",
-    preview_description: "Description",
-    difficulty: "EASY",
-    completed: false,
-    tag: "Tag",
-    flag: "FLAG{test}",
-  },
-  {
-    id: 4,
-    preview_description: "Description",
-    difficulty: "EASY",
-    completed: false,
-    title: "Test",
-    tag: "Tag",
-    flag: "FLAG{test}",
+    tag: "web+crypto",
+    flag: "PT{st4g1ng_1s_pr0ductn_r0le_tru5t_bug}",
   },
 ];
 
