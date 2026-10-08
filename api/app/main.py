@@ -1,9 +1,37 @@
-from fastapi import FastAPI
+import os
+
+import jwt
+from cryptography.fernet import Fernet
+from fastapi import FastAPI, Header, HTTPException
 
 app = FastAPI(
     title="Account Management API",
     version="1.0.0",
 )
+
+JWT_SECRET = os.getenv("JWT_SECRET", "Ver1d1an_Analyt1cs_JWT_S3cr3t_K3y_2024")
+JWT_ALGORITHM = "HS256"
+
+FERNET_KEY = os.getenv("FERNET_KEY", "MKmfEgnGra5Bor7ZG8BkNpYp9xID5_skwfQAksrnzf0=")
+fernet = Fernet(FERNET_KEY)
+
+FLAG = "PT{st4g1ng_1s_pr0ductn_r0le_tru5t_bug}"
+
+USERS = [
+    {"id": 1, "username": "a.silva", "role": "support", "department": "Customer Success"},
+    {"id": 2, "username": "r.perera", "role": "engineer", "department": "Platform Engineering"},
+    {"id": 3, "username": "n.fernando", "role": "it_admin", "department": "IT Operations"},
+    {
+        "id": 4,
+        "username": "flag",
+        "role": FLAG,
+        "department": "Flag Department",
+    },
+]
+
+
+def encrypt_field(value: str) -> str:
+    return fernet.encrypt(value.encode()).decode()
 
 
 @app.get("/api/v1/health")
@@ -12,35 +40,34 @@ def health():
 
 
 @app.get("/api/v1/users")
-def get_users():
+def get_users(authorization: str = Header(default="")):
+    if not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=401, detail="Missing bearer token")
+
+    token = authorization.removeprefix("Bearer ").strip()
+
+    try:
+        payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
+    except jwt.InvalidTokenError:
+        raise HTTPException(status_code=401, detail="Invalid or expired token")
+
+    if payload.get("role") != "admin":
+        raise HTTPException(
+            status_code=403,
+            detail=f"Role '{payload.get('role')}' is not authorized for this resource",
+        )
+
     users = [
         {
-            "id": 1,
-            "username": "TIaseVOOnzQX5lwGYbxwPFG8fZIvO6wEdZzUFJZDznRpImx35kgH3YgDt0ARjUyGV/gn",
-            "role": "W47NyUDgJhWEP2XOeQyxh37HAan7Q3dbANNKzpc2+HPTBoyoyqGySvdL27DgTg==",
-            "department": "FOlHiXdcIL1rJiVkPGT3BAL+w/1rIXKszZkqovdLquCYBbV1T4AExQf8pc5sLKRJtij8hKetV5TvcJ0oUA==",
-            "status": "R6MNjJkBCVhDrsMi93Ph2kyvMf9qAE3MM8MZMnkQW2UkmcZG5HlBhMJtDoSt1EQJbhs=",
-        },
-        {
-            "id": 2,
-            "username": "QDLNUQKf/yXEa7eY6Kw6rtDIYjq7CCiL0mr7sruhyBobCWt1UCxqEhlTQXVs6sLr1S7h7g==",
-            "role": "hyH2jnLPpL+isxgOhrpNKL60UhHZBR7bIFi9iwX3421oAn8o7Yux+nDckvZ2+D4ZBHcG",
-            "department": "msBrQl3w6FqtgCVZchJeHtWyoub90u9UJSwHEu+edXqmwtvEYkRzfDI4YHER7VcdUn6ECZgoC6ilfjxg",
-            "status": "pqhhJLbclOX665ULR9uXa1Nfy+7FLUL+JoQiG9ZAITSo0QNc88wTlBSF4llSbyRPf6E=",
-        },
-        {
-            "id": 3,
-            "username": "VMDGRpUuDxNiDsf7JQzVTF5YzYU3UjQdX4bx5tesL+2KlafGWgoWVzg5zKq+xvHGhW12UiK6",
-            "role": "C2nTmzFFY+/4lR/OZNTsYWv18CONTmMkhZZ8ldDaYHNat4NxTQdNujOmQkgwCmmUBg==",
-            "department": "N2ekSJ/YmsfQUyAEFS9QLgfGiJBQ+uN/G0Zk+eQhSo7FR23npGAo7P7RyLXFCW/gJNJyHqT6Q11pKFft9LnVmCmL",
-            "status": "KPHqD6QGw/PFgZl1dLp6YrZH1yrDmLw8gI7lKeNt0mb+9YSi7gUpsVdlVaZ4PY9xEGc=",
-        },
+            "id": user["id"],
+            "username": encrypt_field(user["username"]),
+            "role": encrypt_field(user["role"]),
+            "department": encrypt_field(user["department"]),
+        }
+        for user in USERS
     ]
-
-    flag = "4ZFtOLsL9mNf4vzCkA0viyQfoq6F39pyaV6HODNaJ3F2FGbgG21xKzqJ18ByLTC4GIxzL/0XMxo3ptFavk+6sVhYOHJ/"
 
     return {
         "status": "ok",
         "users": users,
-        "flag": flag,
     }
