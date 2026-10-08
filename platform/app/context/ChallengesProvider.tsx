@@ -14,6 +14,7 @@ import {
 interface ChallengesContextType {
   challenges: ChallengeType[];
   completeChallenge: (id: number) => void;
+  resetProgress: () => void;
   isLoaded: boolean;
 }
 
@@ -69,11 +70,21 @@ export function ChallengesProvider({ children }: { children: ReactNode }) {
     );
   };
 
+  const resetProgress = () => {
+    try {
+      localStorage.clear();
+    } catch (error) {
+      console.error("Failed to clear localStorage:", error);
+    }
+    setChallenges(initialChallenges);
+  };
+
   return (
     <ChallengesContext.Provider
       value={{
         challenges,
         completeChallenge,
+        resetProgress,
         isLoaded,
       }}
     >

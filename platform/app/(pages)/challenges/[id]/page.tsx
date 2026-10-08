@@ -61,26 +61,30 @@ export default function ChallengePage() {
 
   if (!challenge) {
     return (
-      <div className="bg-zinc-950 text-zinc-100 min-h-screen w-full flex flex-col items-center font-mono overflow-x-hidden selection:bg-zinc-100 selection:text-zinc-950">
-        <nav className="border-b border-zinc-800 bg-zinc-950 w-full flex flex-col items-center py-3">
-          <div className="max-w-7xl w-full flex items-center justify-between px-6">
-            <h1 className="text-sm font-semibold tracking-wider text-zinc-200">
-              root@ctf-box:~#
-            </h1>
-
+      <div className="bg-black text-zinc-100 min-h-screen w-full overflow-x-hidden flex flex-col items-center font-mono selection:bg-zinc-100 selection:text-zinc-950 py-6 px-3 md:py-10">
+        <div className="max-w-5xl w-full border border-zinc-800 rounded-md bg-zinc-950 shadow-[0_0_40px_rgba(0,0,0,0.6)] overflow-hidden flex flex-col">
+          <div className="shrink-0 border-b border-zinc-800 bg-zinc-900/70 px-4 py-2.5 flex items-center gap-2">
+            <div className="flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-red-500/70" />
+              <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/70" />
+              <span className="w-2.5 h-2.5 rounded-full bg-green-500/70" />
+            </div>
+            <span className="flex-1 text-center text-[11px] text-zinc-500 tracking-wide truncate px-2">
+              root@ctf: ~
+            </span>
             <Link
               href="/"
-              className="text-xs border border-zinc-700 text-zinc-200 hover:bg-zinc-900 py-1 px-3 transition-colors"
+              className="text-[10px] text-zinc-600 hover:text-zinc-200 border border-zinc-800 hover:border-zinc-600 px-2 py-0.5 transition-colors shrink-0"
             >
               cd ..
             </Link>
           </div>
-        </nav>
 
-        <div className="max-w-7xl w-full flex flex-col items-center flex-1 p-6 justify-center">
-          <p className="text-xs text-red-400">
-            Error: Challenge not found or connection lost.
-          </p>
+          <div className="p-4 md:p-6 text-xs min-w-0">
+            <p className="text-red-400">
+              &gt; Error: Challenge not found or connection lost.
+            </p>
+          </div>
         </div>
       </div>
     );
@@ -91,37 +95,41 @@ export default function ChallengePage() {
 
   if (!isUnlocked) {
     return (
-      <div className="bg-zinc-950 text-zinc-100 min-h-screen w-full flex flex-col items-center font-mono overflow-x-hidden selection:bg-zinc-100 selection:text-zinc-950">
-        <nav className="border-b border-zinc-800 bg-zinc-950 w-full flex flex-col items-center py-3">
-          <div className="max-w-7xl w-full flex items-center justify-between px-6">
-            <h1 className="text-sm font-semibold tracking-wider text-zinc-200">
-              root@ctf-box:~/challenges/{challenge.id}#
-            </h1>
-
+      <div className="bg-black text-zinc-100 min-h-screen w-full overflow-x-hidden flex flex-col items-center font-mono selection:bg-zinc-100 selection:text-zinc-950 py-6 px-3 md:py-10">
+        <div className="max-w-5xl w-full border border-zinc-800 rounded-md bg-zinc-950 shadow-[0_0_40px_rgba(0,0,0,0.6)] overflow-hidden flex flex-col">
+          <div className="shrink-0 border-b border-zinc-800 bg-zinc-900/70 px-4 py-2.5 flex items-center gap-2">
+            <div className="flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-red-500/70" />
+              <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/70" />
+              <span className="w-2.5 h-2.5 rounded-full bg-green-500/70" />
+            </div>
+            <span className="flex-1 text-center text-[11px] text-zinc-500 tracking-wide truncate px-2">
+              root@ctf: ~/challenges/{challenge.id}
+            </span>
             <Link
               href="/"
-              className="text-xs border border-zinc-700 text-zinc-200 hover:bg-zinc-900 py-1 px-3 transition-colors"
+              className="text-[10px] text-zinc-600 hover:text-zinc-200 border border-zinc-800 hover:border-zinc-600 px-2 py-0.5 transition-colors shrink-0"
             >
               cd ..
             </Link>
           </div>
-        </nav>
 
-        <div className="max-w-7xl w-full flex flex-col items-center flex-1 p-6 justify-center">
-          <div className="border border-zinc-800 bg-zinc-950 p-6 max-w-md w-full flex flex-col items-center gap-4 text-center">
-            <p className="text-xs text-zinc-500">[ACCESS_DENIED]</p>
+          <div className="p-4 md:p-6 text-xs min-w-0 flex flex-col items-center justify-center">
+            <div className="border border-zinc-800 bg-black/60 p-6 max-w-md w-full flex flex-col items-center gap-4 text-center">
+              <p className="text-zinc-500">[ACCESS_DENIED]</p>
 
-            <p className="text-xs text-zinc-400">
-              Error: Previous stage must be completed before accessing this
-              sector.
-            </p>
+              <p className="text-zinc-400">
+                Error: Previous stage must be completed before accessing this
+                sector.
+              </p>
 
-            <Link
-              href="/"
-              className="text-xs border border-zinc-700 text-zinc-200 hover:bg-zinc-900 py-2 px-4 transition-colors mt-2"
-            >
-              cd ..
-            </Link>
+              <Link
+                href="/"
+                className="border border-zinc-700 text-zinc-200 hover:bg-zinc-900 py-2 px-4 transition-colors mt-2"
+              >
+                cd ..
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -158,57 +166,60 @@ export default function ChallengePage() {
   };
 
   return (
-    <div className="bg-zinc-950 text-zinc-100 min-h-screen w-full flex flex-col items-center font-mono overflow-x-hidden selection:bg-zinc-100 selection:text-zinc-950">
-      <nav className="border-b border-zinc-800 bg-zinc-950 w-full flex flex-col items-center py-3">
-        <div className="max-w-7xl w-full flex items-center justify-between px-6">
-          <h1 className="text-sm font-semibold tracking-wider text-zinc-200">
-            root@ctf-box:~/challenges/{challenge.id}#
-          </h1>
-
+    <div className="bg-black text-zinc-100 min-h-screen w-full overflow-x-hidden flex flex-col items-center font-mono selection:bg-zinc-100 selection:text-zinc-950 py-6 px-3 md:py-10">
+      <div className="max-w-5xl w-full border border-zinc-800 rounded-md bg-zinc-950 shadow-[0_0_40px_rgba(0,0,0,0.6)] overflow-hidden flex flex-col">
+        <div className="shrink-0 border-b border-zinc-800 bg-zinc-900/70 px-4 py-2.5 flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-red-500/70" />
+            <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/70" />
+            <span className="w-2.5 h-2.5 rounded-full bg-green-500/70" />
+          </div>
+          <span className="flex-1 text-center text-[11px] text-zinc-500 tracking-wide truncate px-2">
+            root@ctf: ~/challenges/{challenge.id}
+          </span>
           <Link
             href="/"
-            className="text-xs border border-zinc-700 text-zinc-200 hover:bg-zinc-900 py-1 px-3 transition-colors"
+            className="text-[10px] text-zinc-600 hover:text-zinc-200 border border-zinc-800 hover:border-zinc-600 px-2 py-0.5 transition-colors shrink-0"
           >
             cd ..
           </Link>
         </div>
-      </nav>
 
-      <div className="max-w-7xl w-full flex flex-col items-center flex-1 p-6">
-        <div
-          className={`border bg-zinc-950 p-6 max-w-2xl w-full flex flex-col gap-4 relative min-w-0 ${
-            challenge.completed
-              ? "border-zinc-300 shadow-[0_0_15px_rgba(255,255,255,0.05)]"
-              : "border-zinc-800"
-          }`}
-        >
-          <div className="flex items-start justify-between gap-2 border-b border-zinc-800 pb-4">
-            <div>
-              <h1 className="text-sm font-bold text-zinc-200 mb-1">
-                $ ./&lt;{challenge.title.toLowerCase()}&gt;
-              </h1>
+        <div className="p-4 md:p-6 text-xs min-w-0">
+          <div
+            className={`border bg-black/60 p-6 max-w-2xl w-full flex flex-col gap-4 relative min-w-0 mx-auto ${
+              challenge.completed
+                ? "border-zinc-300 shadow-[0_0_15px_rgba(255,255,255,0.05)]"
+                : "border-zinc-800"
+            }`}
+          >
+            <div className="flex items-start justify-between gap-2 border-b border-zinc-800 pb-4">
+              <div>
+                <h1 className="text-sm font-bold text-zinc-200 mb-1">
+                  $ ./&lt;{challenge.title.toLowerCase()}&gt;
+                </h1>
+              </div>
+
+              <span className="text-[10px] text-zinc-500 shrink-0 border border-zinc-800 px-2 py-1">
+                [{challenge.tag}]
+              </span>
             </div>
 
-            <span className="text-[10px] text-zinc-500 shrink-0 border border-zinc-800 px-2 py-1">
-              [{challenge.tag}]
-            </span>
-          </div>
+            <div className="flex items-center justify-between text-xs text-zinc-500">
+              <span>&gt; diff: {challenge.difficulty.toLowerCase()}</span>
 
-          <div className="flex items-center justify-between text-xs text-zinc-500">
-            <span>&gt; diff: {challenge.difficulty.toLowerCase()}</span>
+              <span
+                className={
+                  challenge.completed
+                    ? "text-zinc-100 font-bold"
+                    : "text-zinc-400"
+                }
+              >
+                status: {challenge.completed ? "[SOLVED]" : "[UNSOLVED]"}
+              </span>
+            </div>
 
-            <span
-              className={
-                challenge.completed
-                  ? "text-zinc-100 font-bold"
-                  : "text-zinc-400"
-              }
-            >
-              status: {challenge.completed ? "[SOLVED]" : "[UNSOLVED]"}
-            </span>
-          </div>
-
-          <form
+            <form
             onSubmit={handleSubmit}
             className="flex flex-col gap-2 pt-2 border-t border-zinc-800"
           >
@@ -281,6 +292,7 @@ export default function ChallengePage() {
             )}
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
