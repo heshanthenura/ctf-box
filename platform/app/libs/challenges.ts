@@ -11,12 +11,12 @@ interface ChallengeType {
 const challenges: ChallengeType[] = [
   {
     id: 1,
-    title: "Public Repo",
+    title: "Deleted, Not Gone",
     preview_description: "Found a public repo of an employee",
     difficulty: "EASY",
     completed: false,
-    tag: "Tag",
-    flag: "CTF{a7Kp9xQ2mL4vR8tN}",
+    tag: "forensics",
+    flag: "PT{d3l3t3d_n0t_g0n3_8f3a91c2}",
   },
   {
     id: 2,
