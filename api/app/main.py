@@ -4,10 +4,14 @@ import jwt
 from cryptography.fernet import Fernet
 from fastapi import FastAPI, Header, HTTPException
 
+from . import portal
+
 app = FastAPI(
     title="Account Management API",
     version="1.0.0",
 )
+
+app.include_router(portal.router)
 
 JWT_SECRET = os.getenv("JWT_SECRET", "Ver1d1an_Analyt1cs_JWT_S3cr3t_K3y_2024")
 JWT_ALGORITHM = "HS256"
