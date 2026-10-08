@@ -28,6 +28,15 @@ const challenges: ChallengeType[] = [
     tag: "web+crypto",
     flag: "PT{st4g1ng_1s_pr0ductn_r0le_tru5t_bug}",
   },
+  {
+    id: 3,
+    title: "Inject, Not Vaccine",
+    preview_description: "The login portal trusts whatever shape the query takes",
+    difficulty: "MEDIUM",
+    completed: false,
+    tag: "nosqli",
+    flag: "PT{n0sql_1nj3ct10n_byp4ss3d_4uth}",
+  },
 ];
 
 export { challenges };
