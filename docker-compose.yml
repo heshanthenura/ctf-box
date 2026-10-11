@@ -15,3 +15,9 @@ services:
     volumes:
       - ./api:/app
     restart: unless-stopped
+
+  stage7:
+    build: ./stage7
+    ports:
+      - "2222:22"
+    restart: unless-stopped
