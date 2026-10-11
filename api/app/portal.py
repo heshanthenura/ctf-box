@@ -20,7 +20,7 @@ USERS = [
 
 SESSIONS: dict[str, str] = {}
 
-FILES = ["notes.txt", "handbook.txt", "flag.txt", "ops_dashboard.png"]
+FILES = ["notes.txt", "handbook.txt", "flag.txt", "not-a-secret.jpg"]
 
 LOGIN_PAGE = """<!DOCTYPE html>
 <html lang="en">
