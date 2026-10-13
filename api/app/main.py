@@ -8,7 +8,7 @@ from . import portal
 
 app = FastAPI(
     title="Account Management API",
-    version="1.0.0",
+    version="1.0.1",
 )
 
 app.include_router(portal.router)
@@ -22,9 +22,24 @@ fernet = Fernet(FERNET_KEY)
 FLAG = "PT{st4g1ng_1s_pr0ductn_r0le_tru5t_bug}"
 
 USERS = [
-    {"id": 1, "username": "a.silva", "role": "support", "department": "Customer Success"},
-    {"id": 2, "username": "r.perera", "role": "engineer", "department": "Platform Engineering"},
-    {"id": 3, "username": "n.fernando", "role": "it_admin", "department": "IT Operations"},
+    {
+        "id": 1,
+        "username": "a.silva",
+        "role": "support",
+        "department": "Customer Success",
+    },
+    {
+        "id": 2,
+        "username": "r.perera",
+        "role": "engineer",
+        "department": "Platform Engineering",
+    },
+    {
+        "id": 3,
+        "username": "n.fernando",
+        "role": "it_admin",
+        "department": "IT Operations",
+    },
     {
         "id": 4,
         "username": "flag",
